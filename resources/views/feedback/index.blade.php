@@ -110,6 +110,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/daterangepicker/daterangepicker.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/util.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/main.css') }}">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/emoji-picker-element@4.1.0/dist/emoji-picker.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
 @endpush
@@ -125,11 +127,19 @@
         integrity="sha384-pzjw8zmz9ATKxIep9tiCxS/Z9fNfEX/hoj+2GGcL5D9gP1L2rCB6sFlOTWEI8A2u" crossorigin="anonymous">
     </script>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/kevinchappell/tinymce-mention@master/dist/tinymce.mention.min.js"></script>
+
+
     <script>
         tinymce.init({
             selector: 'textarea#myeditorinstance',
-            plugins: 'mention powerpaste advcode table lists checklist',
-            toolbar: 'undo redo | blocks | bold italic | bullist numlist checklist | code | table',
+            plugins: 'mention powerpaste advcode table lists checklist emoticons autoresize',
+            toolbar: 'undo redo | emoticons | blocks | bold italic | bullist numlist checklist | code | table',
+            // toolbar_location: "bottom",
+            menubar: false,
+            statusbar: false,
             mentions: {
                 source: function(query, success) {
                     // Your mention source logic here
@@ -146,12 +156,9 @@
 
                     success(users);
                 },
-                itemRenderer: function(item, escape) {
-                    return '<li>' +
-                        '<span>' + escape(item.display) + '</span>' +
-                        '</li>';
-                }
+                // ...
             }
+
         });
     </script>
 @endpush

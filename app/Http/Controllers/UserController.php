@@ -36,4 +36,11 @@ class UserController extends Controller
             return response()->json(['error' => 'Unable to delete user and associated data'], 500);
         }
     }
+
+    public function mentionUserGet(Request $request)
+    {
+        $query = $request->get('query');
+        $users = User::where('name', 'like', '%' . $query . '%')->where('is_mentionable', true)->get();
+        return response()->json(['users' => $users->pluck('username')]);
+    }
 }
