@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container-lg table-responsive">
+    <div class="container-lg mt-4 mb-4 table-responsive">
         <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
             <thead>
                 <tr>
@@ -43,6 +43,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" id="theme-styles">
+    <style>
+        .container-lg {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+    </style>
 @endpush
 
 @push('script')
