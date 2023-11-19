@@ -1,3 +1,15 @@
+clone project on github https://github.com/es-77/test.git
+run command composer install 
+
+frontend
+same terminal run command 
+cd react-frontend/ikonic_test_frontend
+npm install 
+npm start 
+
+
+
+
 Feedback Page:
 
 Click on the vote count; one user can add one vote.
