@@ -15,7 +15,7 @@ const columns = [
 
 const dropdown = [
     { label: 'Delete', action: "delete" },
-    { label: 'Update', action: "update" },
+    // { label: 'Update', action: "update" },
     { label: 'Approved Comment', action: "approved" },
 ];
 
@@ -65,7 +65,7 @@ function CommentTable() {
     }, [commentUpdateQuery.isSuccess, commentUpdateQuery.isError]);
     return (
         <div>
-            <DataTable columns={columns} admin={admin} dropdown={dropdown} handleAction={handleAction} listName="Comment List" navgatePath="/dashboard/feedback_form" buttonText="Add Comment" />
+            <DataTable columns={columns} admin={admin} dropdown={dropdown} handleAction={handleAction} listName="Comment List" navgatePath="/#" buttonText="Add Comment" displayButton={false} />
         </div>
     )
 }

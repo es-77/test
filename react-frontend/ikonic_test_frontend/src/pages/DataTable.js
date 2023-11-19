@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { Button, Stack, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-export default function DataTable({ columns, admin, dropdown, handleAction, listName, navgatePath, buttonText }) {
+export default function DataTable({ columns, admin, dropdown, handleAction, listName, navgatePath, buttonText, displayButton = true }) {
     const navigate = useNavigate();
     const [columnsData, SetColumnsData] = useState([])
     const [rowData, setRowData] = useState([]);
@@ -38,7 +38,8 @@ export default function DataTable({ columns, admin, dropdown, handleAction, list
                 <Typography variant="body2" color="initial">
                     {listName ?? ""}
                 </Typography>
-                <Button variant="contained" onClick={() => navgatePath ? navigate(navgatePath) : ""}> {buttonText ?? ""}</Button>
+
+                {displayButton && <Button variant="contained" onClick={() => navgatePath ? navigate(navgatePath) : ""}> {buttonText ?? ""}</Button>}
             </Stack>
             <DataGrid
                 rows={rowData}
