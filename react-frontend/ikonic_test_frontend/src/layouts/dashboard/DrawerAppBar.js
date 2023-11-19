@@ -22,12 +22,13 @@ const drawerWidth = 240;
 
 function DrawerAppBar(props) {
 
-    const { user } = useContext(AuthContext);
+    const { user, logoutUser } = useContext(AuthContext);
     const navItems = [
         (user && user?.type === "admin") ? { component: 'Users', path: "/user" } : "",
         (user && user?.type === "admin") ? { component: 'Comments', path: "/comment" } : "",
         (user && user?.type === "admin") ? { component: 'Feed Back', path: "/feedback" } : "",
         { component: 'Give Feedback On Comment', path: "/give_feedback_on_comment" },
+        { component: 'logout User', handleFunction: "handleLoginout" },
 
     ];
     const { window } = props;
@@ -37,18 +38,28 @@ function DrawerAppBar(props) {
         setMobileOpen((prevState) => !prevState);
     };
 
+    const handleLoginout = () => {
+        logoutUser()
+    }
+
     const drawer = (
         <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
             <Typography variant="h6" sx={{ my: 2 }}>
-                Ikonic Test
+                Ikonic Test login as ({user?.type})
             </Typography>
             <Divider />
             <List>
                 {navItems.map((item) => (
                     <ListItem key={item?.component} disablePadding>
-                        <ListItemButton component={Link} to={`/dashboard${item?.path}`} sx={{ textAlign: 'center' }}>
-                            <ListItemText primary={item?.component} />
-                        </ListItemButton>
+                        {item?.path ? (
+                            <ListItemButton component={Link} to={`/dashboard${item?.path}`} sx={{ textAlign: 'center' }} onClick={(item?.handleFunction) ? handleLoginout : ""}>
+                                <ListItemText primary={item?.component} />
+                            </ListItemButton>
+                        ) : (
+                            <div sx={{ textAlign: 'center' }} onClick={(item?.handleFunction) ? handleLoginout : ""}>
+                                <ListItemText primary={item?.component} />
+                            </div>
+                        )}
                     </ListItem>
                 ))}
             </List>
@@ -76,17 +87,22 @@ function DrawerAppBar(props) {
                         component="div"
                         sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
                     >
-                        Ikonic Test
+                        Ikonic Test login as ({user?.type})
                     </Typography>
                     <Box sx={{ display: { xs: 'none', sm: 'block', display: 'flex', flexDirection: 'row', justifyContent: 'center' } }}>
                         <Stack direction="row" spacing={2}>
-                            {/* <List> */}
                             {navItems.map((item) => (
-                                <MenuItem key={item?.component} component={Link} to={`/dashboard${item?.path}`} >
+                                <MenuItem
+                                    key={item?.component}
+                                    component={item?.path ? Link : 'div'}
+                                    to={(item?.path?.length > 0) ? `/dashboard${item?.path}` : ""}
+                                    onClick={(item?.handleFunction) ? handleLoginout : null}
+                                >
                                     <Typography textAlign="center">{item?.component}</Typography>
                                 </MenuItem>
                             ))}
                         </Stack>
+
                     </Box>
                 </Toolbar>
             </AppBar>

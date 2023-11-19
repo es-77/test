@@ -17,7 +17,7 @@ import GiveFeedBackOnComment from './pages/comment/GiveFeedBackOnComment';
 
 
 export default function Router() {
-    const { token } = useContext(AuthContext);
+    const { token, user } = useContext(AuthContext);
 
     axios.defaults.headers.common = {
         Authorization: `Bearer ${token}`,
@@ -31,17 +31,17 @@ export default function Router() {
         allRoutes.push(
             {
                 path: '/',
-                element: <Navigate to="/dashboard/comment" />,
+                element: <Navigate to="/dashboard/give_feedback_on_comment" />,
             },
             {
                 path: '/dashboard',
                 element: <DashboardLayout />,
                 children: [
-                    { path: 'comment', element: <CommentTable /> },
-                    { path: 'user', element: <UserTable /> },
-                    { path: 'user_form', element: <UserForm /> },
-                    { path: 'feedback_form', element: <FeedbackForm /> },
-                    { path: 'feedback', element: <FeedbackTable /> },
+                    (user && user?.type === "admin") ? { path: 'comment', element: <CommentTable /> } : '',
+                    (user && user?.type === "admin") ? { path: 'user', element: <UserTable /> } : '',
+                    (user && user?.type === "admin") ? { path: 'user_form', element: <UserForm /> } : '',
+                    (user && user?.type === "admin") ? { path: 'feedback_form', element: <FeedbackForm /> } : '',
+                    (user && user?.type === "admin") ? { path: 'feedback', element: <FeedbackTable /> } : '',
                     { path: 'give_feedback_on_comment', element: <GiveFeedBackOnComment /> },
                 ],
             }
