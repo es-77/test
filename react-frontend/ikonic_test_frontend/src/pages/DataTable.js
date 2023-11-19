@@ -27,7 +27,7 @@ export default function DataTable({ columns, admin, dropdown, handleAction, list
     }];
 
     return (
-        <div style={{ height: 400, width: '100%' }}>
+        <div style={{ height: 400, width: '100%', mx: 'auto', my: 'auto', textAlign: 'center' }}>
             <Stack
                 direction="row"
                 justifyContent="space-between"

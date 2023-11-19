@@ -61,10 +61,10 @@ export default function GiveFeedBackOnComment() {
         <>
             {currentItems.map((item, index) => {
                 return (
-                    <Card key={index} sx={{ maxWidth: 545, marginBottom: 7 }}>
+                    <Card key={index} sx={{ maxWidth: 545, marginBottom: 7, mx: 'auto' }}>
                         <CardHeader
-                            title={item?.title}
-                            subheader={item?.created_at_human}
+                            title={`Title : ${item?.title}`}
+                            subheader={`Created At : ${item?.created_at_human}`}
                         />
                         <CardMedia
                             component="img"
@@ -74,7 +74,7 @@ export default function GiveFeedBackOnComment() {
                         />
                         <CardContent>
                             <Typography variant="body2" color="text.secondary">
-                                {item?.description}
+                                Description :  {item?.description}
                             </Typography>
                         </CardContent>
                         <CardActions disableSpacing>
