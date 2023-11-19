@@ -93,7 +93,7 @@ export default function GiveFeedBackOnComment() {
                         </CardActions>
                         <Collapse in={expanded[index]} timeout="auto" unmountOnExit>
                             <CardContent>
-                                <RichTextEditor />
+                                <RichTextEditor feedbackId={item?.id} />
                                 <Typography paragraph>Comments : </Typography>
                                 <UserComment comments={item?.comments} />
                             </CardContent>

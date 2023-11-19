@@ -37,9 +37,7 @@ export default function UserComment({ comments }) {
                         subheader={row?.created_at_human}
                     />
                     <CardContent>
-                        <Typography variant="body2" color="text.secondary">
-                            {row?.content}
-                        </Typography>
+                        <Typography variant="body2" color="text.secondary" dangerouslySetInnerHTML={{ __html: row?.content }} />
                     </CardContent>
                 </Card>
             ))}

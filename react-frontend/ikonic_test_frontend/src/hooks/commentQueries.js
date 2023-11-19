@@ -34,6 +34,21 @@ export function useSaveComment() {
     );
 }
 
+export function useUpdateComment() {
+    const queryClient = useQueryClient();
+    return useMutation(
+        (admin) =>
+            axios
+                .put(laravelApi.comments.comment + '/' + admin?.commentId, admin)
+                .then((result) => result.data),
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries(commentsKeys?.comment);
+            },
+        }
+    );
+}
+
 export function useDeleteComment() {
     const queryClient = useQueryClient();
     return useMutation((id) => axios.delete(`${laravelApi.comments.comment}/${id}`, {}).then((result) => result.data), {

@@ -1,8 +1,15 @@
 import React, { useRef, useEffect } from "react";
 import { Editor } from "@tinymce/tinymce-react";
+import { useSaveComment } from "../../hooks/commentQueries";
+import { toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
+import SendIcon from '@mui/icons-material/Send';
 
-export default function RichTextEditor() {
+export default function RichTextEditor({ feedbackId }) {
     const editorRef = useRef(null);
+    const navigate = useNavigate();
+    const commentQuery = useSaveComment();
 
     useEffect(() => {
         if (editorRef.current) {
@@ -11,13 +18,55 @@ export default function RichTextEditor() {
     }, []);
 
     const handleKeyDown = (e) => {
-        if (e.keyCode === 13) {
+        if (e.key === "Enter") {
             e.preventDefault();
             if (editorRef.current) {
-                alert(editorRef.current.getContent());
+                console.log("Content:", editorRef.current.getContent());
             }
         }
     };
+
+    const handleSendMessage = () => {
+        if (editorRef.current) {
+            const content = editorRef.current.getContent();
+            const comment = {
+                feedbackId: feedbackId,
+                content: content
+            }
+            console.log(comment);
+            commentQuery.mutate(comment);
+        }
+    };
+
+
+    useEffect(() => {
+        const data = commentQuery?.data;
+        const errors = commentQuery?.error?.response?.data?.message;
+        if (commentQuery.isSuccess) {
+            const message = data?.message;
+            const messages = data?.message;
+            const response = data?.response;
+            if (response === 101) {
+                toast.success(message);
+                // setTimeout(() => {
+                //     navigate('/dashboard/user', { replace: true });
+                // }, 2000);
+                if (editorRef?.current) {
+                    editorRef.current.setContent('');
+                }
+            } else {
+                toast.error(messages);
+                // Object.keys(validationErrors).forEach((key) => {
+                //     toast.error(validationErrors[key][0]);
+                // });
+            }
+        }
+
+        if (commentQuery.isError) {
+            const message = 'Error occurred while saving the data';
+            toast.error(errors ?? message);
+        }
+    }, [commentQuery.isSuccess, commentQuery.isError]);
 
     return (
         <>
@@ -54,9 +103,11 @@ export default function RichTextEditor() {
                         "removeformat",
                     content_style:
                         "body { font-family: Helvetica, Arial, sans-serif; font-size: 14px }",
-                    placeholder: "Type your content here...",
                 }}
             />
+            <Button onClick={handleSendMessage} sx={{ marginTop: 2, marginBottom: 2, width: '100%' }} variant="contained" endIcon={<SendIcon />}>
+                Send Message
+            </Button>
         </>
     );
 }

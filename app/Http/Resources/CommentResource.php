@@ -20,6 +20,7 @@ class CommentResource extends JsonResource
             "feedBackTitle" => $this->feedback->title,
             "category" => $this->feedback->category,
             "content" => $this->content,
+            "display" => false,
             "id" => $this->id,
         ];
     }
