@@ -103,6 +103,22 @@ class AuthController extends Controller
 
     public function forgot(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|exists:users,email'
+        ]);
+        if ($validator->fails()) {
+            $errors = array_map(function ($err) {
+                return $err[0];
+            }, $validator->errors()->toArray());
+
+            $errors = implode(',', $errors);
+            $response = ResponseUtil::getResponseArray(null, 102, $errors);
+            return response()->json($response, 422);
+        }
+
+
+        $response = ResponseUtil::getResponseArray(null, 101, 'We have sent you a password reset OPT on your email.');
+        return response()->json($response);
         $passcode = random_int(100000, 999999);
 
         $user = User::where('email', $request->email)->first();

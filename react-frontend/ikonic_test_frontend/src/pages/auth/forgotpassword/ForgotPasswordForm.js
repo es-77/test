@@ -36,9 +36,9 @@ export default function ForgotPasswordForm() {
 
     useEffect(() => {
 
-        if (forGotPasswordQuery?.data?.response === 100) {
+        if (forGotPasswordQuery?.error?.response?.data?.message) {
             setSubmitting(false);
-            const message = forGotPasswordQuery.data?.message;
+            const message = forGotPasswordQuery?.error?.response?.data?.message;
             toast.error(message);
         }
         if (forGotPasswordQuery?.data?.response === 101) {
@@ -46,14 +46,14 @@ export default function ForgotPasswordForm() {
             setSubmitting(false);
             toast.success(message);
             setTimeout(() => {
-                navigate('/new');
+                navigate('/login');
             }, 2000);
         }
     }, [forGotPasswordQuery.data, forGotPasswordQuery.isError])
 
 
     return (
-        <Container maxWidth="sm">
+        <Container maxWidth="sm" sx={{ marginTop: 5 }}>
 
             <FormikProvider value={formik}>
                 <Form autoComplete="off" noValidate onSubmit={handleSubmit}>

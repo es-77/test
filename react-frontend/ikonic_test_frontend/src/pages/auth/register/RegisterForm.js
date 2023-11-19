@@ -57,7 +57,7 @@ export default function RegisterForm() {
     const { errors, touched, handleSubmit, isSubmitting, getFieldProps } = formik;
 
     return (
-        <Container maxWidth="sm">
+        <Container maxWidth="sm" sx={{ marginTop: 5 }}>
 
             <FormikProvider value={formik}>
                 <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
