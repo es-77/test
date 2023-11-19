@@ -45,6 +45,7 @@ function CommentTable() {
 
     useEffect(() => {
         const data = commentUpdateQuery?.data;
+        console.log("commentUpdateQuerycommentUpdateQuery", commentUpdateQuery);
         if (commentUpdateQuery.isSuccess) {
             const message = data?.message;
             const validationErrors = data?.validation_errors;
@@ -63,6 +64,28 @@ function CommentTable() {
             toast.error(message);
         }
     }, [commentUpdateQuery.isSuccess, commentUpdateQuery.isError]);
+
+    useEffect(() => {
+        const data = commentdeleteQuery?.data;
+        console.log("commentUpdateQuerycommentUpdateQuery", commentdeleteQuery);
+        if (commentdeleteQuery.isSuccess) {
+            const message = data?.message;
+            const validationErrors = data?.validation_errors;
+            const response = data?.response;
+            if (response === 101) {
+                toast.success(message);
+            } else {
+                Object.keys(validationErrors).forEach((key) => {
+                    toast.error(validationErrors[key][0]);
+                });
+            }
+        }
+
+        if (commentdeleteQuery.isError) {
+            const message = 'Error occurred while saving the data';
+            toast.error(message);
+        }
+    }, [commentdeleteQuery.isSuccess, commentdeleteQuery.isError]);
     return (
         <div>
             <DataTable columns={columns} admin={admin} dropdown={dropdown} handleAction={handleAction} listName="Comment List" navgatePath="/#" buttonText="Add Comment" displayButton={false} />

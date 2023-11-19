@@ -79,7 +79,7 @@ class AuthController extends Controller
 
         $token = $user->createToken('apptoken')->plainTextToken;
         $data = [
-            'user' => $user,
+            'user' => User::find($user->id),
             'token' => $token,
         ];
         $response = ResponseUtil::getResponseArray($data, 'Create successfully');
