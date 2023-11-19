@@ -30,6 +30,18 @@ export function useLogout() {
         }
     );
 }
+export function useRegistor() {
+    const queryClient = useQueryClient();
+    return useMutation(
+        (data) => axios.post(laravelApi.auth.registor, data).then((result) => result.data),
+        {
+            onSuccess: () => {
+                // Invalidate and refetch
+                queryClient.invalidateQueries(authKeys.user);
+            },
+        }
+    );
+}
 
 export function useNewPassword() {
     const queryClient = useQueryClient();

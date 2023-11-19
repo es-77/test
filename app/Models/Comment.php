@@ -11,6 +11,8 @@ class Comment extends Model
 
     protected $fillable = ['user_id', 'feedback_id', 'content'];
 
+    protected $appends = ['created_at_human'];
+
     public function feedback()
     {
         return $this->belongsTo(Feedback::class);
@@ -29,5 +31,10 @@ class Comment extends Model
     public function scopeNotDisplayed($query)
     {
         return $query->where('is_display', false);
+    }
+
+    public function getCreatedAtHumanAttribute()
+    {
+        return $this->created_at->diffForHumans();
     }
 }

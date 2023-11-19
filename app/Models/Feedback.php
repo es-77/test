@@ -12,6 +12,7 @@ class Feedback extends Model
     protected $table = "feedbacks";
 
     protected $fillable = ['title', 'description', 'category'];
+    protected $appends = ['created_at_human'];
 
     public function comments()
     {
@@ -43,5 +44,10 @@ class Feedback extends Model
     public function votes()
     {
         return $this->hasMany(Vote::class);
+    }
+
+    public function getCreatedAtHumanAttribute()
+    {
+        return $this->created_at->diffForHumans();
     }
 }

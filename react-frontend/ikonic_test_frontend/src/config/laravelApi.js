@@ -9,6 +9,7 @@ function laravelApi() {
             forgot: `${home}/auth/forgot`,
             newPassword: `${home}/auth/newPassword`,
             logout: `${home}/auth/logout`,
+            registor: `${home}/auth/registor`,
             user: `${home}/auth/user`,
         },
 
@@ -20,6 +21,9 @@ function laravelApi() {
         },
         feedbacks: {
             feedback: `${home}/auth/feedbacks`,
+        },
+        feedbacksCommens: {
+            feedbackCommen: `${home}/auth/feedbacks_commens`,
         },
     };
 }

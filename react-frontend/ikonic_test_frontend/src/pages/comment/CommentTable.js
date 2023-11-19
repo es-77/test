@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import DataTable from '../DataTable';
 import { useComment, useDeleteComment } from '../../hooks/commentQueries';
+import RichTextEditor from '../Editor/RichTextEditor';
 
 const columns = [
     { field: 'userName', headerName: 'User Name', width: 130 },

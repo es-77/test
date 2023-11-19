@@ -52,6 +52,40 @@ class AuthController extends Controller
         return response($response, 200);
     }
 
+    public function registor(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'firstName' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:6',
+        ]);
+        $name = $request->firstName;
+        $email = $request->email;
+        $password = $request->password;
+        if ($validator->fails()) {
+            $errors = array_map(function ($err) {
+                return $err[0];
+            }, $validator->errors()->toArray());
+
+            $errors = implode(',', $errors);
+            $response = ResponseUtil::getResponseArray(null, 102, $errors);
+            return response()->json($response, 422);
+        }
+        $user = new User();
+        $user->name = $name;
+        $user->email = $email;
+        $user->password = Hash::make($password);
+        $user->save();
+
+        $token = $user->createToken('apptoken')->plainTextToken;
+        $data = [
+            'user' => $user,
+            'token' => $token,
+        ];
+        $response = ResponseUtil::getResponseArray($data, 'Create successfully');
+        return response($response, 200);
+    }
+
     public function user(Request $request)
     {
         $user = auth()->user();
@@ -66,8 +100,6 @@ class AuthController extends Controller
         $response = ResponseUtil::getResponseArray(null, $message, true);
         return response($response, 200);
     }
-
-
 
     public function forgot(Request $request)
     {

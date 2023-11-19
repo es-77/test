@@ -10,3 +10,6 @@ export const feedbacksKeys = {
 export const commentsKeys = {
     comment: 'comment',
 };
+export const feedbackCommensKeys = {
+    feedbackCommen: 'feedbackCommen',
+};

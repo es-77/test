@@ -13,6 +13,7 @@ import FeedbackTable from './pages/feedback/FeedbackTable';
 import CommentTable from './pages/comment/CommentTable';
 import UserForm from './pages/User/UserForm';
 import FeedbackForm from './pages/feedback/FeedbackForm';
+import GiveFeedBackOnComment from './pages/comment/GiveFeedBackOnComment';
 
 
 export default function Router() {
@@ -41,6 +42,7 @@ export default function Router() {
                     { path: 'user_form', element: <UserForm /> },
                     { path: 'feedback_form', element: <FeedbackForm /> },
                     { path: 'feedback', element: <FeedbackTable /> },
+                    { path: 'give_feedback_on_comment', element: <GiveFeedBackOnComment /> },
                 ],
             }
         );

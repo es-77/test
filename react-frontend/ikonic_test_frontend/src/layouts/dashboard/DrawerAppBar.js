@@ -13,18 +13,23 @@ import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
+import { MenuItem, Stack } from '@mui/material';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 
 const drawerWidth = 240;
-const navItems = [
-    { component: 'Users', path: "/user" },
-    { component: 'Comments', path: "/comment" },
-    { component: 'Feed Back', path: "/feedback" },
-
-];
 
 function DrawerAppBar(props) {
+
+    const { user } = useContext(AuthContext);
+    const navItems = [
+        (user && user?.type === "admin") ? { component: 'Users', path: "/user" } : "",
+        (user && user?.type === "admin") ? { component: 'Comments', path: "/comment" } : "",
+        (user && user?.type === "admin") ? { component: 'Feed Back', path: "/feedback" } : "",
+        { component: 'Give Feedback On Comment', path: "/give_feedback_on_comment" },
+
+    ];
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -35,7 +40,7 @@ function DrawerAppBar(props) {
     const drawer = (
         <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
             <Typography variant="h6" sx={{ my: 2 }}>
-                MUI
+                Ikonic Test
             </Typography>
             <Divider />
             <List>
@@ -71,16 +76,17 @@ function DrawerAppBar(props) {
                         component="div"
                         sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
                     >
-                        MUI
+                        Ikonic Test
                     </Typography>
-                    <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                        {navItems.map((item) => (
-                            <Typography variant="subtitle2" key={item?.component}>
-                                <Link to={`/dashboard${item?.path}`} sx={{ color: '#fff' }}>
-                                    {item?.component}
-                                </Link>
-                            </Typography>
-                        ))}
+                    <Box sx={{ display: { xs: 'none', sm: 'block', display: 'flex', flexDirection: 'row', justifyContent: 'center' } }}>
+                        <Stack direction="row" spacing={2}>
+                            {/* <List> */}
+                            {navItems.map((item) => (
+                                <MenuItem key={item?.component} component={Link} to={`/dashboard${item?.path}`} >
+                                    <Typography textAlign="center">{item?.component}</Typography>
+                                </MenuItem>
+                            ))}
+                        </Stack>
                     </Box>
                 </Toolbar>
             </AppBar>
