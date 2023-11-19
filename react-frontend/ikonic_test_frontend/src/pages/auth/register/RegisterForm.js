@@ -36,7 +36,6 @@ export default function RegisterForm() {
         },
         validationSchema: RegisterSchema,
         onSubmit: (data) => {
-            console.log(">>>>>>>>>>>>>>>>datadata", data);
             registorQuery.mutate(data);
         },
     });
@@ -45,14 +44,13 @@ export default function RegisterForm() {
         if (registorQuery.isSuccess && registorQuery.data) {
             const { user, token } = registorQuery.data.data;
             loginUser(user, token);
-            navigate('/dashboard/comment', { replace: true });
+            navigate('/dashboard/give_feedback_on_comment', { replace: true });
         }
 
         if (registorQuery.isError) {
             const message = registorQuery.error.response?.data.message;
             toast.error(message);
         }
-        console.log(">>>>>>>>>", registorQuery.data, registorQuery.isError)
     }, [registorQuery.data, registorQuery.isError])
 
 

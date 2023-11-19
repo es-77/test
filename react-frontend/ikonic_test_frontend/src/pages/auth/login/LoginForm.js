@@ -46,7 +46,7 @@ export default function LoginForm() {
         if (loginQuery.isSuccess && loginQuery.data) {
             const { user, token } = loginQuery.data.data;
             loginUser(user, token);
-            navigate('/dashboard/comment', { replace: true });
+            navigate('/dashboard/give_feedback_on_comment', { replace: true });
         }
 
         if (loginQuery.isError) {
@@ -54,7 +54,6 @@ export default function LoginForm() {
             const message = loginQuery.error.response?.data.message;
             toast.error(message);
         }
-        console.log(">>>>>>>>>", loginQuery.data, loginQuery.isError)
     }, [loginQuery.data, loginQuery.isError])
 
     return (
