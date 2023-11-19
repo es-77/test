@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import laravelApi from '../config/laravelApi';
-import { feedbacksKeys } from '../config/queryKeys';
+import { feedbackCommensKeys, feedbacksKeys } from '../config/queryKeys';
 
 export function useFeedback(filters) {
     async function getAdmin() {
@@ -29,6 +29,8 @@ export function useSaveFeedback() {
         {
             onSuccess: () => {
                 queryClient.invalidateQueries(feedbacksKeys.feedback);
+                queryClient.invalidateQueries(feedbackCommensKeys.feedbackCommen);
+
             },
         }
     );
@@ -42,6 +44,7 @@ export function useUpdateFeedback() {
         {
             onSuccess: () => {
                 queryClient.invalidateQueries(feedbacksKeys.feedback);
+                queryClient.invalidateQueries(feedbackCommensKeys.feedbackCommen);
             },
         }
     );
@@ -55,6 +58,8 @@ export function useDeleteFeedback() {
         onSuccess: () => {
             // Invalidate and refetch
             queryClient.invalidateQueries(feedbacksKeys.feedback);
+            queryClient.invalidateQueries(feedbackCommensKeys.feedbackCommen);
+
         },
     });
 }

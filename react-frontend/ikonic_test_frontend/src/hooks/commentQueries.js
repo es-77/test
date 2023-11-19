@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import laravelApi from '../config/laravelApi';
-import { commentsKeys } from '../config/queryKeys';
+import { commentsKeys, feedbackCommensKeys } from '../config/queryKeys';
 
 export function useComment(filters) {
     async function getAdmin() {
@@ -29,6 +29,7 @@ export function useSaveComment() {
         {
             onSuccess: () => {
                 queryClient.invalidateQueries(commentsKeys?.comment);
+                queryClient.invalidateQueries(feedbackCommensKeys.feedbackCommen);
             },
         }
     );
@@ -44,6 +45,7 @@ export function useUpdateComment() {
         {
             onSuccess: () => {
                 queryClient.invalidateQueries(commentsKeys?.comment);
+                queryClient.invalidateQueries(feedbackCommensKeys.feedbackCommen);
             },
         }
     );
@@ -55,6 +57,7 @@ export function useDeleteComment() {
         onSuccess: () => {
             // Invalidate and refetch
             queryClient.invalidateQueries(commentsKeys?.comment);
+            queryClient.invalidateQueries(feedbackCommensKeys.feedbackCommen);
         },
     });
 }
